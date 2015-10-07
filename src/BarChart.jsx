@@ -65,9 +65,8 @@ export default class BarChart extends React.Component {
       .attr('transform', `translate(0, ${height})`)
       .call(this.xAxis)
       .append('text')
-      .attr('transform', 'rotate(-90)')
-      .attr('y', 6)
-      .attr('dy', '-.71em')
+      .attr('x', props.width / 2)
+      .attr('dy', '2.3em')
       .style('text-anchor', 'end')
       .text(props.xlabel);
 
