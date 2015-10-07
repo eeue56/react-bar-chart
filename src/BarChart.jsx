@@ -14,7 +14,8 @@ export default class BarChart extends React.Component {
     barWidth : React.PropTypes.number,
     height : React.PropTypes.number.isRequired,
     margin : React.PropTypes.object,
-    ylabel : React.PropTypes.string
+    ylabel : React.PropTypes.string,
+    xlabel : React.PropTypes.string
   };
 
   static defaultProps = { margin: {top: 0, right: 0, bottom: 0, left: 0} };
@@ -62,7 +63,13 @@ export default class BarChart extends React.Component {
     svg.append('g')
       .attr('class', 'x axis')
       .attr('transform', `translate(0, ${height})`)
-      .call(this.xAxis);
+      .call(this.xAxis)
+      .append('text')
+      .attr('transform', 'rotate(-90)')
+      .attr('y', 6)
+      .attr('dy', '-.71em')
+      .style('text-anchor', 'end')
+      .text(props.xlabel);
 
     svg.append('g')
       .attr('class', 'y axis')
@@ -103,13 +110,13 @@ export default class BarChart extends React.Component {
     if (typeof props.width === "undefined"){
       var numberOfBars = this.props.data.length;
 
-      this.props.width = numberOfBars * this.props.barWidth;
+      props.width = (numberOfBars * props.barWidth) + props.margin.left + props.margin.right;
     }
   }
 
   componentDidMount(){
     var props = merge(this.props);
-    
+
     this._setWidth(props);
 
     this._defineAxis(props);
