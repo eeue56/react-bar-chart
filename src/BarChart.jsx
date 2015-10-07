@@ -10,7 +10,8 @@ const merge = function(one, two) {
 export default class BarChart extends React.Component {
   static propTypes = {
     data : React.PropTypes.array.isRequired,
-    width : React.PropTypes.number.isRequired,
+    width : React.PropTypes.number,
+    barWidth : React.PropTypes.number,
     height : React.PropTypes.number.isRequired,
     margin : React.PropTypes.object,
     ylabel : React.PropTypes.string
@@ -98,14 +99,28 @@ export default class BarChart extends React.Component {
     this.yAxis = d3.svg.axis().scale(this.y).orient('left');
   }
 
+  _setWidth(props){
+    if (typeof props.width === "undefined"){
+      var numberOfBars = this.props.data.length;
+
+      this.props.width = numberOfBars * this.props.barWidth;
+    }
+  }
+
   componentDidMount(){
     var props = merge(this.props);
+    
+    this._setWidth(props);
+
     this._defineAxis(props);
     this._renderGraph(props);
   }
 
   shouldComponentUpdate(nextProps){
     var props = merge(nextProps);
+
+    this._setWidth(props);
+
     this._defineAxis(props);
     this._reusableGraph(props);
     return false;

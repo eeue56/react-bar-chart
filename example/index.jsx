@@ -29,10 +29,10 @@ var Index = React.createClass({
     return (
         <div>
             <div style={{width: '50%'}}> 
-                <BarChart ylabel='Quantity' width={this.state.width} height={500} margin={margin} data={data} onBarClick={this.handleBarClick}/>
+                <BarChart ylabel='Quantity' barWidth={300} height={500} margin={margin} data={data} onBarClick={this.handleBarClick}/>
             </div>
             <div style={{width: '50%'}}> 
-                <BarChart ylabel='Quantity' width={this.state.width} height={500} margin={margin} data={data} onBarClick={this.handleBarClick}/>
+                <BarChart ylabel='Quantity' barWidth={200} height={500} margin={margin} data={data} onBarClick={this.handleBarClick}/>
             </div>
         </div>
     );
